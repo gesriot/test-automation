@@ -1,8 +1,9 @@
-"""                    Правило #24
+""" Правило #24
 При объявлении и определении функции не следует использовать "extern"
 """
 
 import os
+
 
 def main():
     path = os.getcwd()
@@ -12,6 +13,7 @@ def main():
     for f in files_c:
         print(f"******************Файл {f}******************")
         scanfile(f)
+
 
 def scanfile(path: str) -> None:
     with open(path) as file:
@@ -31,6 +33,7 @@ def scanfile(path: str) -> None:
                 continue
             if index_br == -1:
                 continue
+
 
 if __name__ == '__main__':
     main()

@@ -1,12 +1,14 @@
-"""                    Правило #32
+""" Правило #32
 Все параметры макроса должны быть заключены в скобки
 """
 
 import os
 import re
 
+
 reg1 = re.compile(r"#define\s+\D\w*\(([a-zA-Z, 0-9]*)")
 reg2 = re.compile(r"#define\s+\D\w*\(([a-zA-Z, 0-9]*)[^\\]*[\\]")
+
 
 def main():
     path = os.getcwd()
@@ -16,6 +18,7 @@ def main():
     for f in files_c:
         print(f"******************Файл {f}******************")
         scanfile(f)
+
 
 def scanfile(path: str) -> None:
     with open(path) as file:
@@ -42,7 +45,6 @@ def scanfile(path: str) -> None:
                             print(f"[Cтрока {n}] Параметр макроса должнен быть заключен в скобки:")
                             print(line.strip())
                             print(" " * (line.find(arg)-2) + "^"*len(arg))
-              
             
             mo1 = reg1.search(line)
             if mo1 is not None:

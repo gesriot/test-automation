@@ -1,5 +1,6 @@
 from os import getcwd, listdir
 
+
 def scanfile(path: str) -> None:
     count_all = 0
     count_comment = 0
@@ -24,6 +25,7 @@ def scanfile(path: str) -> None:
                 count_multicomment += 1
             if line.strip().endswith(r"*/"):
                 multicomment_track = False
+
     k_comment = (count_comment+count_multicomment)/count_all * 100.0
     k_empty = count_empty/count_all * 100.0
     k_comment_empty = (count_comment+count_multicomment+count_empty)/count_all * 100.0
@@ -32,7 +34,7 @@ def scanfile(path: str) -> None:
     if len(long_lines) == 1:
         print(f"Строка {long_lines[0]} слишком длинная, разбейте на две")
     elif len(long_lines) > 1:
-        long_lines = ", ".join(str(i) for i in long_lines)    
+        long_lines = ", ".join(str(i) for i in long_lines)
         print(f"Строки {long_lines} слишком длинные, разбейте на две")
     print(f"Комментариев: {round(k_comment, 2)}%")
     print(f"Комментариев и пустых строк: {round(k_comment_empty, 2)}%")
@@ -40,11 +42,14 @@ def scanfile(path: str) -> None:
     print(f"Пустых строк: {round(k_empty, 2)}%\n")
 
 
-
-if __name__ == "__main__":
+def main():
     path = getcwd()
     files = listdir(path)
     files_c = [f for f in files if f.endswith('.c') or f.endswith('.h')]
 
     for f in files_c:
         scanfile(f)
+
+
+if __name__ == "__main__":
+    main()

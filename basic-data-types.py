@@ -1,9 +1,10 @@
-"""                    Правило #13
+""" Правило #13
 Базовые типы данных не должны использоваться в исходном коде,
 вместо этого следует использовать переопределения
 """
 
 import os
+
 
 c_types = (
     "char", "signed char", "unsigned char",
@@ -27,6 +28,7 @@ def main():
     for f in files_c:
         print(f"******************Файл {f}******************")
         scanfile(f)
+
 
 def scanfile(path: str) -> None:
     with open(path) as file:
