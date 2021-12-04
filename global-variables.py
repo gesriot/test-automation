@@ -23,17 +23,17 @@ def scanfile(path: str) -> None:
             if line.find(r"//") != -1:
                 line, _ = line.split(r"//")
             # ищем {
-            start1 = -1
+            start = -1
             while True:
-                start1 = line.find("{", start1+1)
-                if start1 == -1:
+                start = line.find("{", start+1)
+                if start == -1:
                     break
                 count_br += 1
             # ищем }
-            start2 = -1
+            start = -1
             while True:
-                start2 = line.find("}", start2+1)
-                if start2 == -1:
+                start = line.find("}", start+1)
+                if start == -1:
                     break
                 count_br -= 1
                     

@@ -40,7 +40,6 @@ def scanfile(path: str) -> None:
                 if 0 <= line.find(word) < index:
                     print(f"[Cтрока {n}] Используется базовый тип данных:")
                     print(line, " " * (line.find(word)-1) + "^"*len(word))
-                    continue
 
 
 if __name__ == '__main__':
