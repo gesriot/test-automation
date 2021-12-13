@@ -51,7 +51,7 @@ fn main() {
         let mut line_ = String::new();
         // 15е правило
         for cap in re.captures_iter(line) {
-            line_ = line.replace(&cap[1], &("(".to_string() + &cap[1] + "U)   "));
+            line_ = line.replace(&cap[1], &("(".to_string() + &cap[1] + "U)"));
             line = &line_;
             break;
         }
