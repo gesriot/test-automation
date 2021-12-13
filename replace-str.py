@@ -83,10 +83,8 @@ def modify_strings(filename: str) -> list:
 
         # Блок C - все остальные строки (кот. не вошли в блоки A,B или D)
         if line.find("Write SFR_") >= 0:            
-            line = line.replace("Write SFR_", "#define RF_CFG_C_SFR_VALUE_")       
+            line = line.replace("Write SFR_", "#define RF_CFG_C_SFR_VALUE_")      
         
-
-
         # Теперь добавляем эти измененные строки в списки A,B,C и D
         # Блок А
         if line.find("_A_") >= 0:            
