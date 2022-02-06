@@ -7,16 +7,14 @@ import sys
 
 
 c_types = (
-    "char", "signed char", "unsigned char",
-    "short", "short int", "signed short", "signed short int",
-    "unsigned short", "unsigned short int",
-    "int", "signed", "signed int",
-    "unsigned", "unsigned int",
-    "long", "long int", "signed long", "signed long int",
-    "unsigned long", "unsigned long int",
-    "long long", "long long int", "signed long long", "signed long long int",
-    "unsigned long long", "unsigned long long int",
-    "float", "double", "long double",    
+    "const char ", "const signed char ", "const unsigned char ", "unsigned char ",
+    "signed char ", "char ", "short ", "short int ", "signed short ",
+    "signed short int ", "unsigned short ", "unsigned short int ",
+    "signed ", "signed int ", "unsigned ", "unsigned int ", "long ", "long int ",
+    "signed long ", "signed long int ", "unsigned long ", "unsigned long int ",
+    "long long ", "long long int ", "signed long long ", "signed long long int ",
+    "unsigned long long ", "unsigned long long int ", "int ", 
+    "float ", "double ", "long double ",    
     )
 
 
@@ -25,12 +23,12 @@ def main():
 
     for f in files_c:
         list_to_file = []  
-        list_to_file.append(f"******************Файл {f}******************")
+        list_to_file.append(f"******************Файл {f}******************\n")
         list_to_file = scanfile(f, list_to_file)
         with open("out.txt", "w") as out:
             for line in list_to_file:
                 out.write(line)
-
+count = 0
 
 def scanfile(path: str, list_to_file: list) -> list:
     with open(path) as file:
@@ -39,10 +37,18 @@ def scanfile(path: str, list_to_file: list) -> list:
                 continue
             index = line.find(r"//")
             for word in c_types:
-                if 0 <= line.find(word) < index:
-                    list_to_file.append()
-                    list_to_file.append(f"[Cтрока {n}] Используется базовый тип данных:")
-                    list_to_file.append(line, " " * (line.find(word)-1) + "^"*len(word))
+                if index == -1:
+                    if line.find(word) != -1:                        
+                        list_to_file.append(f"[Строка {n+1}] Используется базовый тип данных:\n")
+                        list_to_file.append(line)
+                        list_to_file.append(" " * (line.find(word)) + "^" + "\n")
+                        break
+                else:
+                    if -1 < line.find(word) < index:                        
+                        list_to_file.append(f"[Строка {n+1}] Используется базовый тип данных:\n")
+                        list_to_file.append(line)
+                        list_to_file.append(" " * (line.find(word)) + "^" + "\n")
+                        break
     return list_to_file
 
 

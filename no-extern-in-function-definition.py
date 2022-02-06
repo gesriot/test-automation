@@ -6,7 +6,7 @@ import sys
 
 
 def main():
-    files_c = (f for f in sys.argv[1:] if f.endswith('.c') or f.endswith('.h'))
+    files_c = (f for f in sys.argv[1:] if f.endswith('.c'))
 
     for f in files_c:
         list_to_file = [] 
