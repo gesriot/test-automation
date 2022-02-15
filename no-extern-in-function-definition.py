@@ -3,16 +3,21 @@
 """
 
 import sys
-
+import os
 
 def main():
     files_c = (f for f in sys.argv[1:] if f.endswith('.c'))
+
+    # Затираем файл с результатами
+    if os.path.exists("out.txt"):
+        with open("out.txt", "w") as out:
+            out.write("")
 
     for f in files_c:
         list_to_file = [] 
         list_to_file.append(f"******************Файл {f}******************")
         list_to_file = scanfile(f, list_to_file)
-        with open("out.txt", "w") as out:
+        with open("out.txt", "a") as out:
             for line in list_to_file:
                 out.write(line)
 
@@ -40,3 +45,4 @@ def scanfile(path: str, list_to_file: list) -> list:
 
 if __name__ == '__main__':
     main()
+    
