@@ -1,29 +1,32 @@
-""" Правило #8
+﻿"""
 Глобальные переменные, которые должны быть инициализированы нулем,
 просто объявляются без присвоения
 """
 
 import sys
-import os
 import re
+import os
+
+
+path_results = "../test/out.txt"
+
 
 def main():
-    files_c = (f for f in sys.argv[1:] if f.endswith('.c'))
-
-    # Затираем файл с результатами
-    if os.path.exists("out.txt"):
-        with open("out.txt", "w") as out:
+    if os.path.exists(path_results):
+        with open(path_results, "w") as out:
             out.write("")
+    
+    files_c = (f for f in sys.argv[1:] if f.endswith('.c'))
 
     for f in files_c:
         list_to_file = [] 
-        list_to_file.append(f"******************Файл {f}******************\n")
+        list_to_file.append(f"******************Файл {f}******************")
         list_to_file = scanfile(f, list_to_file)
-        with open("out.txt", "a") as out:
+        with open(path_results, "a") as out:
             for line in list_to_file:
                 out.write(line)
-
-    print("\nРезультат анализа – в файле out.txt")
+                
+    print("\nThe result of the analysis in the file out.txt")
 
 
 def scanfile(path: str, list_to_file: list) -> list:
@@ -31,7 +34,7 @@ def scanfile(path: str, list_to_file: list) -> list:
     reg2 = re.compile(r"\s*\{(0?U?\.?0?,\s*)*0?U?\.?0?\s*\}\s*;")
     is_multicomment = False
     with open(path) as file:       
-        count_br = 0 # если 0 – то не в функции (т.е. глобальная)
+        count_br = 0 # если 0 - то не в функции (т.е. глобальная)
         for n, line in enumerate(file):
             if line.strip().startswith(r"/*"):
                 is_multicomment = True
@@ -55,9 +58,9 @@ def scanfile(path: str, list_to_file: list) -> list:
             mo1 = reg1.search(line)
             mo2 = reg2.search(line)
             if (mo1 is not None or mo2 is not None) and count_br == 0 and is_multicomment is False:                
-                list_to_file.append(f"[Строка {n+1}] Глобальная переменная должна объявляться без присвоения:\n")
+                list_to_file.append(f"\n[Строка {n+1}] Глобальная переменная должна объявляться без присвоения:\n")
                 list_to_file.append(line.strip())
-                list_to_file.append("\n" + " " * (line.find("=")) + "^\n")
+                list_to_file.append("\n" + " " * (line.find("=")) + "^")
             if line.strip().endswith(r"*/"):
                 is_multicomment = False
     return list_to_file

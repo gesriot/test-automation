@@ -1,11 +1,13 @@
-""" Правило #32
+﻿"""
 Все параметры макроса должны быть заключены в скобки
 """
 
 import sys
-import os
 import re
+import os
 
+
+path_results = "../test/out.txt"
 
 reg1 = re.compile(r"#define\s+\D\w*\(([a-zA-Z, 0-9]*)")
 reg2 = re.compile(r"#define\s+\D\w*\(([a-zA-Z, 0-9]*)[^\\]*[\\]")
@@ -13,24 +15,27 @@ reg3 = re.compile(r"#define\s+\D\w*\s*\(") # должно быть None
 reg4 = re.compile(r"#define\s+\D\w*\s+\D") # должно быть None
 reg5 = re.compile(r"(#define\s+\D\w*\s+)") # для отслеживания позиции
 
-def main():
-    files_c = (f for f in sys.argv[1:] if f.endswith('.c'))
 
+def main():
     # Затираем файл с результатами
-    if os.path.exists("out.txt"):
-        with open("out.txt", "w") as out:
+    if os.path.exists(path_results):
+        with open(path_results, "w") as out:
             out.write("")
+            
+    files_c = (f for f in sys.argv[1:] if f.endswith('.c'))
 
     for f in files_c:
         list_to_file = [] 
         list_to_file.append(f"******************Файл {f}******************\n")
         list_to_file = scanfile(f, list_to_file)
-        with open("out.txt", "a") as out:
+        with open(path_results, "a") as out:
             for line in list_to_file:
                 out.write(line)
+                
+    print("\nThe result of the analysis in the file out.txt")
 
 
-def scanfile(path: str, list_to_file: list) -> list:
+def scanfile(path, list_to_file):
     with open(path) as file:
         next_line = False # критерий ищем ли мы аргументы на след.строке
                           # ищем только в том случае, если сработала reg2 - c косой чертой в конце

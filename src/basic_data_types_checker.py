@@ -1,4 +1,4 @@
-""" Правило #13
+"""
 Базовые типы данных не должны использоваться в исходном коде,
 вместо этого следует использовать переопределения
 """
@@ -18,25 +18,29 @@ c_types = (
     "float ", "double ", "long double ",    
     )
 
+path_results = "../test/out.txt"
+
 
 def main():
-    files_c = (f for f in sys.argv[1:] if f.endswith('.c'))
-
-    # Затираем файл с результатами
-    if os.path.exists("out.txt"):
-        with open("out.txt", "w") as out:
+    # Затираем файл с результатами  
+    if os.path.exists(path_results):
+        with open(path_results, "w") as out:
             out.write("")
+            
+    files_c = (f for f in sys.argv[1:] if f.endswith('.c'))
 
     for f in files_c:
         list_to_file = []  
         list_to_file.append(f"******************Файл {f}******************\n")
         list_to_file = scanfile(f, list_to_file)
-        with open("out.txt", "a") as out:
+        with open(path_results, "a") as out:
             for line in list_to_file:
                 out.write(line)
 count = 0
+print("\nThe result of the analysis in the file out.txt")
 
-def scanfile(path: str, list_to_file: list) -> list:
+
+def scanfile(path, list_to_file):
     with open(path) as file:
         for n, line in enumerate(file):
             if line.strip().startswith("typedef"):

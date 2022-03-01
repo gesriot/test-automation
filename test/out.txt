@@ -1,0 +1,13 @@
+******************Файл ../test/1.c******************
+[Строка 141] Используется базовый тип данных:
+const char CARACC_aRcuDataArray[] =
+^
+[Строка 213] Используется базовый тип данных:
+const unsigned char CARACC_aImmoDataArray[] =
+^
+[Строка 589] Используется базовый тип данных:
+    unsigned char nCounter=0;
+    ^
+[Строка 731] Используется базовый тип данных:
+static long int CARACC_INIT_FunctionTimeOutStop(void)
+       ^

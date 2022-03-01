@@ -9,10 +9,12 @@
 в противном случае - FAIL.
 """
 
-
 import sys
 import os
 import re
+
+
+path_results = "../test/out.txt"
 
 
 def main():
@@ -20,13 +22,14 @@ def main():
 
     for f in files_c:
         scanfile(f)
+    print("\nThe result of the analysis in the file out.txt")
 
 
-def add_to_file(line: str):
+def add_to_file(line):
     if type(line) is not str:
         line = str(line)
         
-    with open("out.txt", "a") as out:
+    with open(path_results, "a") as out:
         out.write(line + "\n")
 
 
@@ -38,7 +41,7 @@ def read_data(filename: str) -> list:
     return ls
 
 
-def read_fn_declaration(file_ls: str, number_str: int) -> list:
+def read_fn_declaration(file_ls, number_str):
     ls = []
     number_str -= 1
     n = number_str
@@ -59,9 +62,9 @@ def scanfile(path: str):
     ls = []
 
     # затираем файл с результатами
-    if os.path.exists("out.txt"):
-        with open("out.txt", "w") as out:
-            out.write(f"*************************** Файл {path} ***************************")    
+    if os.path.exists(path_results):
+        with open(path_results, "w") as out:
+            out.write(f"******************Файл {f}******************\n")    
 
     with open(path) as file:
         next_line_param = False  # критерий ищем ли мы параметры на след.строке шапки @Parameters
@@ -111,7 +114,6 @@ def scanfile(path: str):
             if mo is not None:
                 if not line.strip().endswith(";"):
                     is_add2 = True
-                    curr_line = line
                     func_pos_n = n + 1
                 if line.find("void ") >= 0 and (line.find("void ") < line.find("(")):
                     return_value = "None"
