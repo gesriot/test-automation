@@ -57,14 +57,15 @@ def read_fn_declaration(file_ls, number_str):
     return ls
 
 
-def scanfile(path: str):
+def scanfile(path):
     reg = re.compile(r"^[\w*]+(\s[\w*]*)*\(")
     ls = []
 
     # затираем файл с результатами
     if os.path.exists(path_results):
         with open(path_results, "w") as out:
-            out.write(f"******************Файл {f}******************\n")    
+            f_ = path.lstrip("../test/")
+            out.write(f"******************Файл {f_}******************\n")    
 
     with open(path) as file:
         next_line_param = False  # критерий ищем ли мы параметры на след.строке шапки @Parameters

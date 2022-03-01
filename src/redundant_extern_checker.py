@@ -17,7 +17,8 @@ def main():
 
     for f in files_c:
         list_to_file = [] 
-        list_to_file.append(f"******************Файл {f}******************\n")
+        f_ = f.lstrip("../test/")
+        list_to_file.append(f"******************Файл {f_}******************\n")
         list_to_file = scanfile(f, list_to_file)
         with open(path_results, "a") as out:
             for line in list_to_file:
