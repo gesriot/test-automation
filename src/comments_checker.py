@@ -146,13 +146,16 @@ def scanfile(path):
                     continue
             if next_line_func and line.find(")") == -1:  # не 1й и не посл. параметр
                 param_with_name = line.strip()[:-1]
-                param_name = param_with_name.split()[-1]
-                param.append(param_name)
+                
+                if len(param_with_name) != 0:
+                    param_name = param_with_name.split()[-1]
+                    param.append(param_name)
                 continue
             elif next_line_func and line.find(")") >= 0:  # посл. параметр
                 param_with_name = line.strip()[:-1]
-                param_name = param_with_name.split()[-1]
-                param.append(param_name)
+                if len(param_with_name) != 0:
+                    param_name = param_with_name.split()[-1]
+                    param.append(param_name)
                 next_line_func = False
             if next_line_func and line.find("**") >= 0:
                 next_line_func = False

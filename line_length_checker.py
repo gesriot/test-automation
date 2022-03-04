@@ -1,18 +1,23 @@
 import sys
+import os
 
 
 def main():
     files_c = (f for f in sys.argv[1:] if f.endswith('.c') or f.endswith('.h'))
 
-    for f in files_c:
-        list_to_file = [] 
-        list_to_file = scanfile(f, list_to_file)
+    if os.path.exists("out.txt"):
         with open("out.txt", "w") as out:
-            for line in list_to_file:
-                out.write(line)
+            out.write(f"")
 
+    for f in files_c:
+        ls = [] 
+        ls = scanfile(f, ls)
+        with open("out.txt", "a") as out:
+            for line in ls:
+                out.write(line+"\n")
 
-def scanfile(path: str, list_to_file: list) -> list:
+        
+def scanfile(path: str, ls: list) -> list:
     count_all = 0
     count_comment = 0
     count_multicomment = 0
@@ -41,17 +46,17 @@ def scanfile(path: str, list_to_file: list) -> list:
     k_empty = count_empty/count_all * 100.0
     k_comment_empty = (count_comment+count_multicomment+count_empty)/count_all * 100.0
     k_code = (count_all-count_comment-count_multicomment-count_empty)/count_all * 100.0
-    list_to_file.append(f"Файл {path}:")
+    ls.append(f"Файл {path}:")
     if len(long_lines) == 1:
-        list_to_file.append(f"Строка {long_lines[0]} слишком длинная, разбейте на две")
+        ls.append(f"Строка {long_lines[0]} слишком длинная, разбейте на две")
     elif len(long_lines) > 1:
         long_lines = ", ".join(str(i) for i in long_lines)
-        list_to_file.append(f"Строки {long_lines} слишком длинные, разбейте на две")
-    list_to_file.append(f"Комментариев: {round(k_comment, 2)}%")
-    list_to_file.append(f"Комментариев и пустых строк: {round(k_comment_empty, 2)}%")
-    list_to_file.append(f"Кода: {round(k_code, 2)}%")
-    list_to_file.append(f"Пустых строк: {round(k_empty, 2)}%\n")
-    return list_to_file
+        ls.append(f"Строки {long_lines} слишком длинные, разбейте на две")
+    ls.append(f"Комментариев: {round(k_comment, 2)}%")
+    ls.append(f"Комментариев и пустых строк: {round(k_comment_empty, 2)}%")
+    ls.append(f"Кода: {round(k_code, 2)}%")
+    ls.append(f"Пустых строк: {round(k_empty, 2)}%\n")
+    return ls
 
 if __name__ == "__main__":
     main()
