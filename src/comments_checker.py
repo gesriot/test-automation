@@ -70,6 +70,8 @@ def scanfile(path):
     with open(path) as file:
         next_line_param = False  # критерий ищем ли мы параметры на след.строке шапки @Parameters
         next_line_func = False  # критерий ищем ли мы параметры на след.строке функции
+        is_fail = True # флаг, чтобы вывести FAIL всего лишь один раз
+        fail_counts = 0 # количество функций с некорректной шапкой
         param_com = []
         param = []
         return_value_com = ""
@@ -77,6 +79,9 @@ def scanfile(path):
         func_pos_n = 0
         is_add1 = False
         is_add2 = False
+
+        add_ls = [] # Сюда добавляем то, что будем писать в файл, если fail_counts != 0
+                    # иначе (если fail_counts == 0) мы просто напишем "PASS"
 
         data = read_data(path)
 
@@ -161,26 +166,36 @@ def scanfile(path):
                 next_line_func = False
 
             if is_add1 and is_add2:
-                ret_val = return_value_com.strip(".")
-                add_to_file(f"\n[Строка {func_pos_n}]")
+                if is_fail:                    
+                    add_ls.append("FAIL")
+                    is_fail = False
+
+                ret_val = return_value_com.strip(".")                
                 
                 if return_value != "None" and ret_val == "None":
-                    add_to_file("В комментарии к фунции, возвращающей НЕ void в @ReturnValue НЕ должно быть написано None")
+                    fail_counts += 1
+                    add_ls.append(f"\n[Строка {func_pos_n}]")
+                    add_ls.append("В комментарии к фунции, возвращающей НЕ void в @ReturnValue НЕ должно быть написано None")
                 if param_com != param:
-                    add_to_file("FAIL")
-                    add_to_file(f"@Parameters: {param_com}")
+                    fail_counts += 1
+                    add_ls.append(f"\n[Строка {func_pos_n}]")
+                    add_ls.append(f"@Parameters: {param_com}")
 
                     ls = read_fn_declaration(data, func_pos_n)
                     for l in ls:
-                        add_to_file(l)
-                else:
-                    add_to_file("TEST PASS")
+                        add_ls.append(l)
 
                 is_add1 = False
                 is_add2 = False
 
                 param_com = []
                 param = []
+        
+        if fail_counts == 0:
+            add_to_file("PASS")
+        else:
+            for l in add_ls:
+                add_to_file(l)
 
 
 if __name__ == '__main__':

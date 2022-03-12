@@ -1,133 +1,18 @@
-
-[Строка 430]
+******************Файл 1.c******************
 FAIL
+
+[Строка 383]
+В комментарии к фунции, возвращающей НЕ void в @ReturnValue НЕ должно быть написано None
+
+[Строка 520]
 @Parameters: ['None']
-static void IMMO_BSW_NVMY_FlashCallback(const U8 nEventID,
-                                        const U8 nJobResult);
-
-[Строка 452]
-FAIL
-@Parameters: ['nBankNumber']
-void IMMO_BSW_NVMY_Init(void)
-
-[Строка 490]
-TEST PASS
-
-[Строка 519]
-TEST PASS
-
-[Строка 548]
-FAIL
-@Parameters: ['None']
-BOOLEAN IMMO_BSW_NVMY_GetNeedErase(const U8 nBankNumber)
+static void CARACC_MainStateMachine(U8 nEventID)
 
 [Строка 587]
-FAIL
-@Parameters: ['nJobType', 'nEventID', 'pCallback']
-U8 IMMO_BSW_NVMY_GetJobResult(void)
-
-[Строка 620]
-FAIL
-@Parameters: ['nBakNumber', 'nSourceAddress', 'pDataBuffer', 'nDataQty']
-STD_RESULT IMMO_BSW_NVMY_SetJobCallback(const U8 nJobType,
-                                        const U8 nEventID,
-                                        const MEM_END_OF_JOB_CALLBACK pCallback)
-
-[Строка 690]
 В комментарии к фунции, возвращающей НЕ void в @ReturnValue НЕ должно быть написано None
-FAIL
-@Parameters: ['nBankNumber', 'nTargetAddress', 'pDataBuffer', 'nDataQty']
-STD_RESULT IMMO_BSW_NVMY_Read(const U8  nBankNumber,
-                              const U32 nSourceAddress,
-                              U8* const pDataBuffer,
-                              const U32 nDataQty)
 
-[Строка 832]
-TEST PASS
-
-[Строка 972]
-FAIL
-@Parameters: ['nBankNumber']
-STD_RESULT IMMO_BSW_NVMY_Write(const U8  nBankNumber,
-                               const U32 nTargetAddress,
-                               const U8* const pDataBuffer,
-                               const U32 nDataQty)
-
-[Строка 1256]
-FAIL
-@Parameters: ['pStatusMask']
-U32 IMMO_BSW_NVMY_GetRecordSize(const U8 nBankNumber)
-
-[Строка 1293]
-FAIL
-@Parameters: ['nStatusMask']
-U32 IMMO_BSW_NVMY_GetMemoryStatus(void)
-
-[Строка 1325]
-FAIL
-@Parameters: ['nBankNumber']
-void IMMO_BSW_NVMY_SetMemoryStatus(const U32 nStatusMask)
-
-[Строка 1359]
-FAIL
-@Parameters: ['nBankNumber', 'pFindFrom', 'pRecordFound']
-static void IMMO_BSW_NVMY_FindLastValidRecord(const U8 nBankNumber)
-
-[Строка 1526]
-FAIL
-@Parameters: ['nBankNumber', 'nRecordAddress']
-static U32 IMMO_BSW_NVMY_FindPreviousValidRecord(const U8  nBankNumber,
-                                                 const U32 nFindFrom,
-                                                 BOOLEAN* const pRecordFound)
-
-[Строка 1584]
-TEST PASS
-
-[Строка 1616]
-FAIL
-@Parameters: ['nRecordAddress']
-static U32 IMMO_BSW_NVMY_GetPrevRecordAddr(const U8  nBankNumber,
-                                           const U32 nRecordAddress)
-
-[Строка 1647]
-TEST PASS
-
-[Строка 1665]
-TEST PASS
-
-[Строка 1683]
-TEST PASS
-
-[Строка 1701]
-TEST PASS
-
-[Строка 1736]
-TEST PASS
-
-[Строка 1771]
-FAIL
-@Parameters: ['nBankNumber', 'nRecordAddress']
-static IMMO_BSW_NVMY_NUMBER_FIELD_TYPE IMMO_BSW_NVMY_ReadNumber(const U32 nRecordAddress)
-
-[Строка 1807]
-FAIL
-@Parameters: ['nRecordAddress']
-static BOOLEAN IMMO_BSW_NVMY_IsChecksumValid(const U8  nBankNumber,
-                                             const U32 nRecordAddress)
-
-[Строка 1843]
-FAIL
-@Parameters: ['pDataBuffer', 'nDataQty']
-static BOOLEAN IMMO_BSW_NVMY_IsSignatureValid(const U32 nRecordAddress)
-
-[Строка 1878]
-FAIL
-@Parameters: ['nRecordAddress']
-static IMMO_BSW_NVMY_CHECKSUM_FIELD_TYPE IMMO_BSW_NVMY_CalcChecksum(const U8* const pDataBuffer,
-                                                                    const U32 nDataQty)
-
-[Строка 1907]
+[Строка 642]
 В комментарии к фунции, возвращающей НЕ void в @ReturnValue НЕ должно быть написано None
-FAIL
-@Parameters: ['nEventID', 'nJobResult']
-static U32 IMMO_BSW_NVMY_GetDataFieldAddress(const U32 nRecordAddress)
+
+[Строка 731]
+В комментарии к фунции, возвращающей НЕ void в @ReturnValue НЕ должно быть написано None
