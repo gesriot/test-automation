@@ -32,7 +32,7 @@ def main():
 
 def scanfile(path: str, list_to_file: list) -> list:
     reg1 = re.compile(r"\s*0U?\.?0*\s*;")
-    reg2 = re.compile(r"\s*\{(0?U?\.?0?,\s*)*0?U?\.?0?\s*\}\s*;")
+    reg2 = re.compile(r"\s*\{(0?U?\0?,\s*)*0?U?\.?0?\s*\}\s*;")
     is_multicomment = False
     with open(path) as file:       
         count_br = 0 # если 0 - то не в функции (т.е. глобальная)
